@@ -20,9 +20,9 @@ graph LR
     E --> F[User Interface]
     
     subgraph "Training Pipeline (Google Colab)"
-    T1[Roboflow Dataset] --> T2[YOLOv8 Training]
-    T2 --> T3[Validation & Metrics]
-    T3 --> T4[Export Weights (.pt)]
+    T1["Roboflow Dataset"] --> T2["YOLOv8 Training"]
+    T2 --> T3["Validation & Metrics"]
+    T3 --> T4["Export Weights (.pt)"]
     end
     
     subgraph "Deployment (Hugging Face Spaces)"
