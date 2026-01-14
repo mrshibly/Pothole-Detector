@@ -3,10 +3,12 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-Object%20Detection-green)
 ![Gradio](https://img.shields.io/badge/Gradio-Web%20App-orange)
-![Hugging Face](https://img.shields.io/badge/Deployment-Hugging%20Face%20Spaces-yellow)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/mrshibly/Pothole-Detector)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ## 📌 Project Overview
+**[🔴 Live Demo Available Here](https://huggingface.co/spaces/mrshibly/Pothole-Detector)**
+
 This project is an **AI-powered Real-Time Pothole Detection System** designed to improve road safety and maintenance. It leverages computer vision techniques using the **YOLOv8** (You Only Look Once) architecture to identify potholes from image and video feeds with high accuracy. The model is deployed as a user-friendly web application using **Gradio**, accessible via browser or mobile for field usage.
 
 ## 🏗️ System Architecture
