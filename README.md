@@ -1,4 +1,4 @@
-# 🕳️ Real-Time Pothole Detection System
+# Real-Time Pothole Detection System
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-Object%20Detection-green)
@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ## 📌 Project Overview
-**[🔴 Live Demo Available Here](https://huggingface.co/spaces/mrshibly/Pothole-Detector)**
+**[🔴 Live Demo ](https://huggingface.co/spaces/mrshibly/Pothole-Detector)**
 
 This project is an **AI-powered Real-Time Pothole Detection System** designed to improve road safety and maintenance. It leverages computer vision techniques using the **YOLOv8** (You Only Look Once) architecture to identify potholes from image and video feeds with high accuracy. The model is deployed as a user-friendly web application using **Gradio**, accessible via browser or mobile for field usage.
 
@@ -57,7 +57,6 @@ The model was trained for 20 epochs on a T4 GPU.
 ├── requirements.txt        # Python dependencies
 ├── notebooks/
 │   ├── Pothole_Detection_Training.ipynb  # Comprehensive Training Pipeline
-│   └── colab_training_script.py          # Script version of training
 ├── best.pt                 # Trained YOLOv8 Model Weights (Upload after training)
 └── README.md               # Project Documentation
 ```
