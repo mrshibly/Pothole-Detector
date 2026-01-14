@@ -38,7 +38,7 @@ with gr.Blocks() as demo:
     
     with gr.Row():
         with gr.Column():
-            camera_input = gr.Image(source="webcam", streaming=True, label="Live Camera Feed")
+            camera_input = gr.Image(sources=["webcam"], label="Live Camera Feed")
         with gr.Column():
             output_image = gr.Image(label="Detection Output")
 
