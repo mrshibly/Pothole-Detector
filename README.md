@@ -13,6 +13,8 @@ This project is an **AI-powered Real-Time Pothole Detection System** designed to
 
 ## 🏗️ System Architecture
 
+![Deployment Screenshot](image.png)
+
 ```mermaid
 graph LR
     A[Input Source] -->|Webcam/Image| B(Preprocessing)
