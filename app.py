@@ -5,7 +5,6 @@ import numpy as np
 from PIL import Image
 
 # Load the trained model
-# IMPORTANT: You must upload your 'best.pt' file to the same directory as this app.py
 try:
     model = YOLO('best.pt')
 except:
@@ -14,13 +13,14 @@ except:
 
 def detect_potholes(image):
     """
-    Function to perform inference on an image (from camera).
+    Function to perform inference on an image.
     """
     if image is None:
         return None
     
     # Run inference
-    results = model(image)
+    # verbose=False reduces log clutter
+    results = model(image, verbose=False)
     
     # Plot results
     # results[0].plot() returns a BGR numpy array
@@ -31,27 +31,45 @@ def detect_potholes(image):
     
     return res_rgb
 
+# CSS to ensure the video isn't mirrored (good for back cameras)
+css = """
+video { transform: scaleX(1) !important; }
+"""
+
 # Create the Gradio Interface
-with gr.Blocks() as demo:
-    gr.Markdown("# 🕳️ Real-Time Pothole Detection")
-    gr.Markdown("Deploy this on Hugging Face Spaces (CPU Basic is fine).")
+with gr.Blocks(css=css, theme=gr.themes.Soft()) as demo:
+    gr.Markdown("# 🕳️ Real-Time Pothole Detection System")
+    gr.Markdown("Deploy this on Hugging Face Spaces. Switch tabs for different modes.")
     
-    with gr.Row():
-        with gr.Column():
-            camera_input = gr.Image(sources=["webcam"], label="Live Camera Feed")
-        with gr.Column():
-            output_image = gr.Image(label="Detection Output")
+    with gr.Tabs():
+        # TAB 1: Real-Time Stream
+        with gr.Tab("📹 Live Pothole Detection"):
+            gr.Markdown("**Use this tab for continuous detection (Video Stream)**")
+            with gr.Row():
+                with gr.Column():
+                    # 'sources=["webcam"]' and NO 'mirror_webcam' argument (handled by CSS)
+                    stream_input = gr.Image(sources=["webcam"], label="Live Camera Feed", interactive=True)
+                with gr.Column():
+                    stream_output = gr.Image(label="Live Detection Output")
+            
+            # Continuous stream event
+            stream_input.stream(fn=detect_potholes, inputs=stream_input, outputs=stream_output, show_progress=False)
 
-    # Connect the input to the output
-    # Using streaming=True in input and running the function
-    # Note: For smoother video, we might want to use gr.Interface with live=True 
-    # but 'source="webcam"' in Blocks is also good. 
-    # Let's use the simpler Interface for maximum compatibility with free tiers.
-
-    # Alternative simple interface:
-    # iface = gr.Interface(fn=detect_potholes, inputs="webcam", outputs="image", live=True)
-
-    camera_input.change(fn=detect_potholes, inputs=camera_input, outputs=output_image)
+        # TAB 2: Upload or Capture
+        with gr.Tab("📷 Upload / Take Photo"):
+            gr.Markdown("**Use this tab to upload an image or take a single snapshot.**")
+            with gr.Row():
+                with gr.Column():
+                    # Sources allow both upload and webcam snapshot
+                    static_input = gr.Image(sources=["upload", "webcam"], label="Upload or Snap Photo", type="numpy")
+                    detect_btn = gr.Button("Detect Potholes", variant="primary")
+                with gr.Column():
+                    static_output = gr.Image(label="Processed Image")
+            
+            # Button click event
+            detect_btn.click(fn=detect_potholes, inputs=static_input, outputs=static_output)
+            # Automatic detection on upload change (optional, but good UX)
+            static_input.change(fn=detect_potholes, inputs=static_input, outputs=static_output)
 
 # Launch
 if __name__ == "__main__":
